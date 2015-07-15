@@ -1,0 +1,85 @@
+nginx.conf文件说明
+
+1 一个典型的配置文件
+
+worker_processes  1;#nginx进程数，一般设为cpu核心数
+events {
+    worker_connections  1024;#单进程最大连接数
+}
+
+http {#设定http服务器
+
+    include       mime.types;#文件扩展名与文件类型映射表
+    default_type  application/octet-stream; #默认文件类型
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen       80;#监听的端口
+        server_name  localhost;#域名
+        root         /Users/X/MT/www;#url资源放置的根目录，使用绝对路径，~主目录，似乎不生效
+
+        location ~ ^\/static\/.*$ {#使用了不区分大小写的正规表达式匹配
+            root  /Users/X/MT/www;
+        }
+
+        location / {  #此处就是反响代理，将动态资源，发送给另外一个在9000端口的web服务器，静态页面在上面处理
+                proxy_pass       http://127.0.0.1:9000;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+}
+include servers/*;
+
+配置完conf文件后，使用-s reload 重新加载配置文件，使生效
+
+
+2  location和alias指令
+location /img/ {
+    alias /var/www/image/;
+}#访问/img/目录里面的文件时，ningx会自动去/var/www/image/目录找文件
+
+location /img/ {
+    root /var/www/image;
+}#访问/img/目录下的文件时，nginx会去/var/www/image/img/目录下找文件。] 
+
+alias是一个目录别名的定义，root则是最上层目录的定义。
+alias后面必须要用“/”结束，否则会找不到文件的。。。而root则可有可无~~
+
+
+3 index指令
+
+例如
+location / {
+    root  /src/www
+    index index.html
+}
+表示要求访问url上的/路径(及以/开始的资源)时，nginx将在文件系统的/src/www/目录下查找相关的资源文件
+
+index 表示，单独访问/路径，使用root路径下的index.html作为指示性页面，发送。
+
+
+4 禁止访问
+#禁止访问 .htxxx 文件
+    location ~ /\.ht {
+        deny all;
+    }
+
+
+5 nginx 命令
+
+/usr/local/nginx/sbin/nginx -t -c nginx.conf
+-c  指定配置文件
+-t  测试是否正确，不执行
+-v  显示版本信息
+
+
+
+
+

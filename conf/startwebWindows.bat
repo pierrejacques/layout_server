@@ -1,0 +1,1 @@
+start /b python C:\server\web\wsgiapp.py
