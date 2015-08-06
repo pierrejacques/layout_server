@@ -18,16 +18,17 @@
 $(function() {
 var vm = new Vue({
         el: '#judge',
-        data: {n:'Click to update time'  },
+        data: {n:'Click to update time'  ,addr:''},
         methods: {
             onClick: function (e) {
                 this.n = 'OK';
-                postApi('/api/json',{'name':'cairuyuan','gender':'M'},
+                    postApi('/api/json',{'name':'cairuyuan','addr':this.addr},
                     function(err, res){
                         if (!err) {   //这里想根据res更改n，但是this的绑定已经变化了
-                            $("#Score").text(res['res'])
+                            $("#Score").text(res['res']);
                         };
                     });
+                    this.addr='';
             }
         }
     });
@@ -42,7 +43,7 @@ var vm = new Vue({
     
     <divt id = "judge" class = "uk-margin-large">
         <h2 id = 'Score' class="uk-article-lead" >{{'{{n}}'}}</h2>
-        <input type="text" placeholder="输入网址" class="uk-width-1-2">
+        <input v-model='addr' id = 'addr' type="text" placeholder="输入网址" class="uk-width-1-2">
         <button v-on="click: onClick" class="uk-button uk-button-primary" type="button" >测试</button>
     </div>
     
