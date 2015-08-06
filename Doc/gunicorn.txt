@@ -1,0 +1,14 @@
+gunicorn说明
+http://gunicorn.org/
+
+
+1  示例
+当前目录下已经有web框架入口程序，wsgiapp.py，这个程序是符合wsgi标准的
+
+/usr/local/bin/gunicorn wsgiapp:application
+/usr/local/bin/gunicorn --bind 127.0.0.1:9000 --workers 1 --worker-class gevent wsgiapp:application
+
+--bind 表示绑定的端口
+--worker 表示启动的线程数，
+--worker-class 表示工作的模式，geevent把Python同步代码变成异步协程的库；提高性能
+

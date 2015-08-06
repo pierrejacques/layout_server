@@ -1,0 +1,60 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>my web app</title>
+    <link rel="stylesheet" href="/static/css/uikit.min.css">
+    <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/md5.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/myajax.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+<script>
+
+$(function() {
+var vm = new Vue({
+        el: '#judge',
+        data: {n:'Click to update time'  },
+        methods: {
+            onClick: function (e) {
+                this.n = 'OK';
+                postApi('/api/json',{'name':'cairuyuan','gender':'M'},
+                    function(err, res){
+                        if (!err) {   //这里想根据res更改n，但是this的绑定已经变化了
+                            $("#Score").text(res['res'])
+                        };
+                    });
+            }
+        }
+    });
+})
+
+</script>
+
+</head>
+<body class=" uk-text-center">
+    <p></p>
+    <h1 class=" uk-margin-large">Welcome</h1>
+    
+    <divt id = "judge" class = "uk-margin-large">
+        <h2 id = 'Score' class="uk-article-lead" >{{'{{n}}'}}</h2>
+        <input type="text" placeholder="输入网址" class="uk-width-1-2">
+        <button v-on="click: onClick" class="uk-button uk-button-primary" type="button" >测试</button>
+    </div>
+    
+    <hr class="uk-article-divider uk-margin-large">
+
+    <article class="uk-article uk-text-center">
+        <p class="uk-article-meta">清 殷兆镛</p>
+        <p class="uk-article-lead">
+            槛外山光，历春夏秋冬，万千变幻，都非凡境<br>
+            窗中云影，任东西南北，去来澹荡，洵是仙居
+        </p>
+    </article>
+
+</body>
+</html>
