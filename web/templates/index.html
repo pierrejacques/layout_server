@@ -18,16 +18,17 @@
 $(function() {
 var vm = new Vue({
         el: '#judge',
-        data: {n:'Click to update time'  ,addr:''},
+        data: {n:' '  ,addr:''},
         methods: {
             onClick: function (e) {
-                this.n = 'OK';
                     postApi('/api/json',{'name':'cairuyuan','addr':this.addr},
-                    function(err, res){
-                        if (!err) {   //这里想根据res更改n，但是this的绑定已经变化了
-                            $("#Score").text(res['res']);
-                        };
-                    });
+                            function(err, res){
+                                if (!err) {   //这里想根据res更改n，但是this的绑定已经变化了
+                                    $("#Score").text(res['res']);
+                                    document.getElementById("image").src= res['path']
+                                };
+                            }
+                        );
                     this.addr='';
             }
         }
@@ -50,12 +51,9 @@ var vm = new Vue({
     <hr class="uk-article-divider uk-margin-large">
 
     <article class="uk-article uk-text-center">
-        <p class="uk-article-meta">清 殷兆镛</p>
-        <p class="uk-article-lead">
-            槛外山光，历春夏秋冬，万千变幻，都非凡境<br>
-            窗中云影，任东西南北，去来澹荡，洵是仙居
-        </p>
+        <img id = 'image' src="/extract/screenshot/" width="320" height="175" alt="网页照片"/>
     </article>
+
 
 </body>
 </html>
