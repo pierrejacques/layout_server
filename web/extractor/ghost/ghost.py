@@ -936,11 +936,12 @@ class Ghost(object):
 
         :param reply: The QNetworkReply object.
         """
-
-        if reply.attribute(QNetworkRequest.HttpStatusCodeAttribute):
-            Logger.log("[%s] bytesAvailable()= %s" % (str(reply.url()),
-                reply.bytesAvailable()), level="debug")
-
+        if QNetworkRequest is None:
+            print "none"
+        else:
+            if reply.attribute(QNetworkRequest.HttpStatusCodeAttribute):
+                Logger.log("[%s] bytesAvailable()= %s" % (str(reply.url()),
+                   reply.bytesAvailable()), level="debug")
             # Some web pages return cache headers that mandates not to cache
             # the reply, which means we won't find this QNetworkReply in
             # the cache object. In this case bytesAvailable will return > 0.
@@ -950,11 +951,11 @@ class Ghost(object):
             # implementation of QNetworkManager and QNetworkReply in order to
             # get the contents of the requests properly rather than relying
             # on the cache.
-            if reply.bytesAvailable() > 0:
-                content = reply.peek(reply.bytesAvailable())
-            else:
-                content = None
-            self.http_resources.append(HttpResource(reply, self.cache,
+                if reply.bytesAvailable() > 0:
+                    content = reply.peek(reply.bytesAvailable())
+                else:
+                    content = None
+                self.http_resources.append(HttpResource(reply, self.cache,
                                                     content=content))
 
     def _unsupported_content(self, reply):

@@ -1,4 +1,5 @@
 #_*_ coding: utf-8 _*_
+#features
 from extractor import (
   set_version,
   export,
@@ -24,12 +25,12 @@ from extractor import (
   NodeAmountFeature,
   ClusterFeature,
   )
-from dataset import DataSet
+#from dataset import DataSet
 
 set_version('exp_global')
 
-data = DataSet('/home/gsj987/experiment/webscorer.new/groups/')
-data.load_dom(5)
+#data = DataSet('/home/gsj987/experiment/webscorer.new/groups/')
+#data.load_dom(5)
 
 reload = False
 
@@ -148,7 +149,7 @@ features = ChainOperator(f10, Normalization(0,1))
 
 
 #ff4 = f4.compute(data.groups, data.labels)
-ffs = features.compute(data.data, data.labels)
+#ffs = features.compute(data.data, data.labels)
 
 #import numpy as np
 #fn = np.hstack((f4.get_feature_names(), features.get_feature_names()))

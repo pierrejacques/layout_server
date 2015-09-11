@@ -11,16 +11,18 @@ class Normalization(AbstractFeature):
     self.dtype = dtype
 
   def _caculate(self, X):
+    if self.minX is None:
+      self.minX = np.min(X, axis=0)
+    if self.maxX is None:
+      self.maxX = np.max(X, axis=0)
     r = (self.maxX - self.minX)
     dx = []
     for i in range(len(X)):
-      if(r[i]>0):
-        dx.append((X[i]*1.0-self.minX[i]) / r[i])
+      if(r>0):
+        dx.append((X[i]*1.0-self.minX) / r)
       else:
         dx.append(0)
     X = np.asarray(dx)
-    X = X * (self.high - self.low)
-    X = X + self.low
     return X
 
   def compute(self, X, y):
@@ -35,6 +37,7 @@ class Normalization(AbstractFeature):
     for img in X:
       features.append(self.extract(img))
     return np.asarray(features, dtype=self.dtype)
+    print "compute"
 
   def extract(self, X):
     return self._caculate(X) 

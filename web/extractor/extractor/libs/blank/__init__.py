@@ -81,3 +81,4 @@ if __name__ == '__main__':
   #cv.FloodFill(ba.temporary_img, (1275, 660), 100)
   #print ba.temporary_img[660, 1275]
   cv2.imwrite('test.jpg', np.asarray(ba.temporary_img))
+  print "success"

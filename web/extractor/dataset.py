@@ -3,11 +3,11 @@ import os
 import random
 from PIL import Image
 import csv
-import pymongo
+#import pymongo
 
 random.seed()
-client = pymongo.MongoClient()
-db = client.blocks
+#client = pymongo.MongoClient()
+#db = client.blocks
 
 class DataSet(object):
   def __init__(self, filename=None, sz=None, samplename=None):
@@ -17,13 +17,14 @@ class DataSet(object):
     self.data = []
     self.samples = []
     self.sz = sz
+    '''
     if filename is not None:
       self.block_text = db['block_text']
       self.load(filename, samplename)
     else:
       # load sample
       self.block_text = db['block_evaluator']
-
+    '''
   def shuffle(self):
     idx = np.argsort([random.random() for i in xrange(len(self.labels))])
     self.data = [self.data[i] for i in idx]
@@ -78,7 +79,7 @@ class DataSet(object):
             pass
         c+=1
     self.labels = np.array(self.labels, dtype=np.int)
-
+'''
   def load_dom(self, max_depth, min_size=(0,0)):
     for i, n in enumerate(self.names):
       data = self.data[i]
@@ -107,7 +108,7 @@ class DataSet(object):
     for group in self.groups:
       labels += ([group.label] * len(group.nodes))
     return labels
-
+'''
 class DataGroup:
   def __init__(self, data, label, nodes, max_depth):
     self.data = data

@@ -180,7 +180,6 @@ class FrameworkFeature(VisualFeature):
 
 
 if __name__ == '__main__':  
-  import cv2
   img = cv2.imread('/home/gsj987/experiment/webscorer.new/groups/bad/bitauto_com_g.png', 0)
   ff = FrameworkFeature(threshold=0,force_reload=True)
   print ff.extract(img)
