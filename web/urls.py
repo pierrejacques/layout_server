@@ -33,6 +33,6 @@ def compute():
     urls = urlparse.urlparse(ctx.request.para['addr'])
     host = urls.netloc
     print host
-    path = '/extract/screenshot/'+host.replace('.','_')+'+.png'
+    path = '/extractor/screenshot/'+host.replace('.','_')+'+.png'
     print path
     return {'res': ctx.request.para['addr'], 'path':path }
