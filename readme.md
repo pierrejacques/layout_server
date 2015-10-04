@@ -7,17 +7,24 @@
 		1. jinja2
 		2. gevent
 		3. gunicorn
-
-
 2. nginx
-	- 配置文件位于conf下nginx.conf.
-		1. 启动: nginx -c [path]
-		2. 测试: nginx -t [path]
-		3. 其他:
+    - 安装
+    	1. mac
+    		- brew install nginx
+    		- 找配置文件， find /usr -name nginx.conf
+    	2. Windows
+    		- lk
+		3. Linux
+			- ok
+	- 运行
+		1. 自用配置文件位于conf下nginx.conf.不同操作系统不混用
+		2. 启动: nginx -c [path]
+		3. 测试: nginx -t [path]
+		4. 其他:
 	  		- nginx -s stop    [-c path]
 	  		- nginx -s quit    [-c path]
 	  		- nginx -s reload  [-c path]
-	- ssl配置
+	- SSL
 		1. cd /usr/local/nginx/conf
 			- openssl genrsa -des3 -out server.key 1024
 			- openssl req -new -key server.key -out server.csr
@@ -28,8 +35,6 @@
 			- ssl_certificate   [ path ]/server.crt;
 			- ssl_certificate_key  [ path ]/server_nopwd.key;
 			- 不要用哪个ssl on，问题多。
-	   
-
 3. 运行
 	- 使用在mac下，先直接运行./run.sh，再根据帮助信息操作
 
