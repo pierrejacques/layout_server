@@ -18,7 +18,12 @@ def signin():
 @get('/api/users')
 def getuser():
     print ctx.request.para
-    return {'users':'12'}
+    print "hello ..."
+    # callback = ctx.request.para['callback']
+    # res = '{0}({1})'.format(callback, {'a':1, 'b':2})
+    resp = {"OK":"NOK"}
+    print resp
+    return resp
 
 @api
 @get('/api/admininfo')
@@ -29,10 +34,21 @@ def ALLusers():
 @api
 @post('/api/json')
 def compute():
-    print ctx.request.para['addr']
+    print ctx.request.para
+    
     urls = urlparse.urlparse(ctx.request.para['addr'])
     host = urls.netloc
     print host
     path = '/extractor/screenshot/'+host.replace('.','_')+'+.png'
     print path
     return {'res': ctx.request.para['addr'], 'path':path }
+
+
+@api
+@post('/api/json2')
+def compute():
+    print ctx.request.para
+    url = ctx.request.para['res']
+    uid = ctx.request.para['id']
+    
+    return {'score':12,'id':0 }

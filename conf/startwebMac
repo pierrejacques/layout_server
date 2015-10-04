@@ -1,2 +1,0 @@
-cd /Users/X/server/web
-gunicorn --bind 127.0.0.1:9000 --workers 4 --worker-class gevent wsgiapp:application

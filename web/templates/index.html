@@ -21,15 +21,38 @@ var vm = new Vue({
         data: {n:' '  ,addr:''},
         methods: {
             onClick: function (e) {
-                    postApi('/api/json',{'name':'cairuyuan','addr':this.addr},
-                            function(err, res){
-                                if (!err) {   //这里想根据res更改n，但是this的绑定已经变化了
-                                    $("#Score").text(res['res']);
-                                    document.getElementById("image").src= res['path']
-                                };
-                            }
-                        );
-                    this.addr='';
+
+
+                    // postApi('/api/json2',{'name':'cairuyuan','addr':this.addr},
+                    //         function(err, res){
+                    //             if (!err) {
+                    //                 alert("成功 --> " + res);   
+                    //                 //这里想根据res更改n，但是this的绑定已经变化了
+                    //                 // $("#Score").text(res['res']);
+                    //                 // document.getElementById("image").src= res['path']
+                    //             };
+                    //         }
+                    //     );
+                    // this.addr='';
+
+    function w3r_callbackS(data){  alert("S -->  " + data);  }
+    function w3r_callbackF(data){  alert("F -->  " + data);  }
+
+        $.ajax({
+                 type: "POST",   
+                 dataType: "json",    
+                 url: "https://192.168.2.3:81/api/json2",  
+                 data: {'name':'cairuyuan','from':'monkey'},
+                 success: function (data) { 
+                    w3r_callbackS(data);   
+                 },
+                 error: function (err) {
+                    w3r_callbackF(err);
+                 }
+          });
+
+
+
             }
         }
     });
