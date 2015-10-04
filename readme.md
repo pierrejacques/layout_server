@@ -1,21 +1,16 @@
 #ReadMe
 
-### 依赖项
-
 1. python
-	- 安装依赖库 pip install [ * ],
-		1. jinja2
-		2. gevent
-		3. gunicorn
+	- jinja2
+	- gevent
+	- gunicorn
 2. nginx
     - 安装
-    	1. mac
+    	1. Mac
     		- brew install nginx
     		- 找配置文件， find /usr -name nginx.conf
     	2. Windows
-    		- lk
 		3. Linux
-			- ok
 	- 运行
 		1. 自用配置文件位于conf下nginx.conf.不同操作系统不混用
 		2. 启动: nginx -c [path]
@@ -25,7 +20,7 @@
 	  		- nginx -s quit    [-c path]
 	  		- nginx -s reload  [-c path]
 	- SSL
-		1. cd /usr/local/nginx/conf
+		1. cd 到存储证书等文件的目录
 			- openssl genrsa -des3 -out server.key 1024
 			- openssl req -new -key server.key -out server.csr
 			- openssl rsa -in server.key -out server_nopwd.key
@@ -37,7 +32,7 @@
 			- 不要用哪个ssl on，问题多。
 3. 运行
 	- 使用在mac下，先直接运行./run.sh，再根据帮助信息操作
-
+	- windows下，暂时不支持。
 
 4. 目录
 	- conf 是配置文件
