@@ -38,3 +38,4 @@
 	- conf 是配置文件
 	- doc  是用到的一些模块的说明
 	- web  是程序主目录
+	- *猴子的插件在 web/static/js/plugin.js
