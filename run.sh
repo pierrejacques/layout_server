@@ -58,4 +58,4 @@ elif [[ $1 == "test" ]]; then
 	sudo nginx -t -c /Users/x/server/conf/nginx.conf
 elif [[ $1 == "help" ]]; then
     helpinfo
-fi
+fi 

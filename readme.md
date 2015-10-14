@@ -29,7 +29,7 @@
 			- listen 443 ssl;
 			- ssl_certificate   [ path ]/server.crt;
 			- ssl_certificate_key  [ path ]/server_nopwd.key;
-			- 不要用哪个ssl on，问题多。
+			- 不要用那个ssl on，问题多。
 3. 运行
 	- 使用在mac下，先直接运行./run.sh，再根据帮助信息操作
 	- windows下，暂时不支持。
