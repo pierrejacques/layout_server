@@ -49,4 +49,4 @@ def compute():
 def compute():
     print ctx.request.para
     
-    return {'score':12,'id':0 }
+    return {'score':22,'id':0 }

@@ -30,21 +30,20 @@
 // alert("start");
 
 GM_addStyle('#s_tab a.i {width: 108px; color: blue; font-size: 18px; font-weight: bold; }');
-GM_addStyle('.result-op { display: none; }');	
+GM_addStyle('.result-op { display: none; }'); 
 GM_addStyle('.result { position: relative; }');
 GM_addStyle('.result .score-container { width: 300px; height: 240px; display: none; border: 1px solid #eee; position: absolute; left: 550px; top: 0px; box-shadow: 1px 1px 1px #ccc; padding: 10px; background: white}');
 GM_addStyle('.result .score-container .score { font-size: 18px; color: #666; }');
 GM_addStyle('.result .score-container img { width: 100% }');
-GM_addStyle('.result.down:before { content: "鈻�";color: red;position: absolute;left: -19px; }');
-GM_addStyle('.result.up:before { content: "鈻�";color: green;position: absolute;left: -19px; }');
+GM_addStyle('.result.down:before { content: "▲";color: red;position: absolute;left: -19px; }');
+GM_addStyle('.result.up:before { content: "▼";color: green;position: absolute;left: -19px; }');
 GM_addStyle('.hide { display: none!important }');
 GM_addStyle('.result:hover .score-container { display: block; }');
 GM_addStyle('#loading { display: none; position: fixed; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; top:0; left:0; text-align: center; text-align: center; }');
 GM_addStyle('#loading .load { display: inline-block; background: white; border: 1px solid #ccc; border-radius: 3px; width: 120px; height: 50px; padding: 15px; text-align: center; margin-top: 30% }');
 GM_addStyle('#loading .load p { font-size: 12px; margin-top: 5px }');
 
-$('#s_tab').append($('<a>').text('鐐规閲嶆帓锛�').addClass('i').attr('href', 'javascript:void(0)').click(get_score));
-
+$('#s_tab').append($('<a>').text('点此重排！').addClass('i').attr('href', ' javascript:void(0) ').click(get_score));
 if($('.leftBlock').length){
     $('<div>').addClass('anchor').insertAftger('.leftBlock');
 }else{
@@ -55,15 +54,14 @@ if($('.leftBlock').length){
 results = [];
 scores = [];
 
-$('.result').each(
-    function(ind, item) {
-        results.push($(item).find('.t a').attr('href'));
-        html = "<div>寰楀垎:<span class='score'></span></div>"+  "<div class='img-container'><img></div>";
-        $(item).append($('<div>').addClass('score-container hide').attr('id', 'score-'+ind).html(html));
-    });
+$('.result').each(function(ind, item){
+    results.push($(item).find('.t a').attr('href'));
+    html = "<div>得分:<span class='score'></span></div>"+
+        "<div class='img-container'><img></div>";
+    $(item).append($('<div>').addClass('score-container hide').attr('id', 'score-'+ind).html(html));
+});
 
-load_html = "<div class='load'>璇勫垎涓�...<img src='http://jimpunk.net/Loading/wp-content/uploads/loading3.gif' width=15><p>宸插畬鎴愶細<span class='done'>0</span>/"+results.length+"</p></div>"
-
+load_html = "<div class='load'>评分中...<img src='http://jimpunk.net/Loading/wp-content/uploads/loading3.gif' width=15><p>已完成：<span class='done'>0</span>/"+results.length+"</p></div>"
 $('body').append($('<div></div>').attr('id', 'loading').html(load_html));
 
 function show_loading(){
@@ -102,10 +100,10 @@ function resort(){
 }
 
 function get_score(){ 
-    alert("鍙戦�佹暟鎹�");
+    alert("发送网页数据到后台，评分");
     show_loading();
     $('.result .score-container').removeClass('hide');
-    for(i=0;i<results.length;i++){ //alert("鑾峰彇鏁版嵁"+i+"/"+results.length+"--> "+results[i]+":"+i); 
+    for(i=0;i<results.length;i++){ 
         (function(ii){
           $.ajax({
               type: "POST", 
@@ -119,13 +117,12 @@ function get_score(){
                   sf = parseFloat(data['score']);
                   score = (sf*100).toFixed(2);
                   id = data['id'];
-                  //alert("浠庢湇鍔″櫒寰楀埌鏁版嵁 "+i+" :  data['score'] = "+data['score'] + "  "+ "id = "+ data['id']);
                   $('#score-'+id+' .score').text(score);
-                  $('#score-'+id+' img').attr('src', 'https://192.168.2.3:8801/exp3/sc/'+encodeURIComponent(data.img)+'?r='+Math.random());
+                  $('#score-'+id+' img').attr('src', 'https://127.0.0.1:81/exp3/sc/'+encodeURIComponent(data.img)+'?r='+Math.random());
              },
              error: function (err) {
                   update_loading();
-                  $('#score-'+ii+' .score').text('璇勫垎鍑虹幇浜嗛敊璇�');
+                  $('#score-'+ii+' .score').text('评分出现了错误');
              }
            });
  

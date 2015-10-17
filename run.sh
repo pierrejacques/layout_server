@@ -28,11 +28,11 @@ function killpython(){
 
 function helpinfo(){
 	echo "运行 run.sh 使用下面的参数:"
-    echo "stop   ---> 杀死之前进程，清理"
+    echo "stop   ---> 杀死之前进程，清理， 有时候杀不干净，多来两次"
     echo "test   ---> 测试nginx配置文件"
     echo "start  ---> 杀死之前进程，清理，重新启动nginx 和 wsgiapp"
     echo "reload ---> 重新加载nginx 配置文件"
-    echo "举个栗子: ./run.sh start "
+    echo "举个栗子: ./run.sh start 就启动了所有程序，打开浏览器即可。。。"
 
 }
 if [[ $# == 0 ]]; then

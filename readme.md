@@ -1,4 +1,13 @@
 #ReadMe
+如何使用？
+
+	- 将server文件夹放在系统/目录下
+	- cd到server目录下  sudo ./run.sh  根据提示操作
+	- 其他的都不用配置了。。。
+	- 
+
+<hr>
+<br>
 
 1. python
 	- jinja2
