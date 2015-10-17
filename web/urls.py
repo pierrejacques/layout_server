@@ -48,7 +48,5 @@ def compute():
 @post('/api/json2')
 def compute():
     print ctx.request.para
-    url = ctx.request.para['res']
-    uid = ctx.request.para['id']
     
     return {'score':12,'id':0 }

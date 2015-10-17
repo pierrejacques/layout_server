@@ -110,7 +110,7 @@ function get_score(){
           $.ajax({
               type: "POST", 
               dataType: "json", 
-              url: "https://192.168.2.3:81/api/json2",
+              url: "https://127.0.0.1:81/api/json2",
               data:{'id':i,'res':results[i]},
               
               success: function (data) { 
