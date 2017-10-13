@@ -6,6 +6,7 @@ import markdown2
 from transwarp.web import ctx
 from transwarp.web_append import seeother, notfound, get, post,view
 from transwarp.apis import api, APIError, APIValueError, APIPermissionError, APIResourceNotFoundError
+import urlparse
 from extractor.evaluator import get_score
 import string
 
@@ -30,15 +31,14 @@ def ALLusers():
 @api
 @post('/api/json')
 def compute():
-    print ctx.request.para
-    #return {'res': time.ctime()}
+    print ctx.request.para['addr']
     url=ctx.request.para['addr']
+    urls = urlparse.urlparse(url)
+    host = urls.netloc
+    print host
     b = get_score(url)
     c= string.atof(b[0:5])
     score= round(c*100)
-    return {'res': score}
-#t="http://www.baidu.com/"
-#b = get_score(t)
-#c=string.atof(b)
-#score= '%d' %(c*100)
-#print score
+    path = '/extractor/screenshot/'+host.replace('.','_')+'+.png'
+    print path
+    return {'res': score, 'path':path }

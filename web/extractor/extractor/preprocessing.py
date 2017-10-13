@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 class Preprocessing(VisualFeature):
-  def do_compute(self, X, y):
+  def compute(self, X, y):
     features = []
     for img in X:
       sm = self.extract(img)

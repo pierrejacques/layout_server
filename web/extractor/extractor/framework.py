@@ -169,7 +169,7 @@ class FrameworkFeature(VisualFeature):
         img[j,i] = 255
     super(FrameworkFeature, self).save_img(img)    
 
-  def do_compute(self, X, y):
+  def compute(self, X, y):
     features = []
     for x in X:
       features.append(self.extract(x))

@@ -124,5 +124,5 @@ class Identity(AbstractFeature):
 
 
 def export(to_export):
-  path = os.path.join('..', 'exports', VERISON+'.mat')
+  path = os.path.join('C:\\server\\web\\extractor\\exports', VERISON+'.mat')
   scipy.io.savemat(path, mdict=to_export)

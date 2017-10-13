@@ -43,7 +43,7 @@ class MarginFeature(VisualFeature):
     self.save_img(ba.outputImg)
     return features
 
-  def do_compute(self, X, y):
+  def compute(self, X, y):
     features = []
     for img in X:
       features.append(self.extract(img))

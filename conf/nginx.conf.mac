@@ -26,9 +26,12 @@ http {#设定http服务器
 
 
         location /favicon.ico {
-            root   /Users/X/server/web;
+         log_not_found off;
         }
         location ~ ^\/static\/.*$ {
+            root  /Users/X/server/web;
+        }
+        location ~ ^\/extractor\/.*$ {
             root  /Users/X/server/web;
         }
 

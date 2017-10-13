@@ -1,25 +1,20 @@
 from ghost import Ghost
 from utils import decode
 import os
-#from pymongo import MongoClient
 import traceback
 import time
 
 path = os.path.join(os.path.dirname(__file__), 'screenshot')
-#client = MongoClient()
-#db = client.blocks
-#block_text = db["block_evaluator"]
+
 
 def get_sitename(url):
   url = url.replace("http://", "").replace("https://", "").strip()
   return url.replace('.', '_').replace('/', '+').strip() 
 
+#save png from url
 def render_notext(url):
   sitename = get_sitename(url)
-  #block_text.remove({ 'sitename': sitename })
-
-  ghost = Ghost(viewport_size=(1280, 700), wait_timeout=60)
-  #ghost.set_proxy('https', port=8118)
+  ghost = Ghost()
   ghost.open(url, headers={
     "Accept":"image/webp,*/*;q=0.8",
     "Accept-Language": "zh-CN,zh;q=0.8",
@@ -32,6 +27,7 @@ def render_notext(url):
   return sitename
   print "success"
 
+
 if __name__ == '__main__':
   t = "http://www.baidu.com/"
   try:
@@ -43,3 +39,4 @@ if __name__ == '__main__':
      os.unlink(os.path.join(path, sitename))
     
     traceback.print_exc()
+

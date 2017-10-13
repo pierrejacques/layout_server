@@ -25,12 +25,14 @@ from extractor import (
   NodeAmountFeature,
   ClusterFeature,
   )
+  
+#extract features from pictures in groups
+#use set_version to the name of the .mat file
+#Dataset(the address of picture groups)
+  
 #from dataset import DataSet
-
-set_version('exp_global')
-
-#data = DataSet('/home/gsj987/experiment/webscorer.new/groups/')
-#data.load_dom(5)
+#set_version('exp_global')
+#data = DataSet('C:\\server\\web\\extractor\\groups\\')
 
 reload = False
 
@@ -147,24 +149,12 @@ f4 = exp4()
 
 features = ChainOperator(f10, Normalization(0,1))
 
+#use the code below to export a .mat file
 
-#ff4 = f4.compute(data.groups, data.labels)
+#fff = f10.compute(data.data, data.labels)
 #ffs = features.compute(data.data, data.labels)
-
-#import numpy as np
-#fn = np.hstack((f4.get_feature_names(), features.get_feature_names()))
-#final_features = np.hstack((ff4, ffs))
-#print len(data.labels)
-#print len(data.data)
 #export({
 #  'features': ffs,
 #  'labels': data.labels,
 #})
 
-"""
-export({
-  'features': features,
-  'labels': data.labels,
-  'featureNames': fn,
-})
-"""

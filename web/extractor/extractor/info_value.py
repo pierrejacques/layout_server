@@ -7,7 +7,7 @@ class JpegFeature(VisualFeature):
   def extract(self, X):
     return self.j2k_compress(X)
 
-  def do_compute(self, X, y):
+  def compute(self, X, y):
     features = []
     for img in X:
       features.append(self.j2k_compress(img))

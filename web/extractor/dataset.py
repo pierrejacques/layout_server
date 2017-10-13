@@ -3,12 +3,10 @@ import os
 import random
 from PIL import Image
 import csv
-#import pymongo
 
 random.seed()
-#client = pymongo.MongoClient()
-#db = client.blocks
 
+#
 class DataSet(object):
   def __init__(self, filename=None, sz=None, samplename=None):
     self.labels = []
@@ -17,14 +15,9 @@ class DataSet(object):
     self.data = []
     self.samples = []
     self.sz = sz
-    '''
     if filename is not None:
-      self.block_text = db['block_text']
       self.load(filename, samplename)
-    else:
-      # load sample
-      self.block_text = db['block_evaluator']
-    '''
+    
   def shuffle(self):
     idx = np.argsort([random.random() for i in xrange(len(self.labels))])
     self.data = [self.data[i] for i in idx]
@@ -34,6 +27,7 @@ class DataSet(object):
     if len(self.groups) == len(self.labels):
       self.groups = self.groups[idx]
 
+# load single picture
   def load_sample(self, path, name):
     for filename in os.listdir(path):
       _n = filename.replace('.png', '')
@@ -47,11 +41,11 @@ class DataSet(object):
         self.labels.append(0)
         self.names.append(_n)
 
+#load group pictures
   def load(self, path, samplepath):
     filename_to_samples = None
     if samplepath!=None:
       filename_to_samples = dict(list(csv.reader(open(samplepath, "rb"))))
-
     for dirname, dirnames, filenames in os.walk(path):
       c = 0
       for subdirname in dirnames:
@@ -79,36 +73,8 @@ class DataSet(object):
             pass
         c+=1
     self.labels = np.array(self.labels, dtype=np.int)
-'''
-  def load_dom(self, max_depth, min_size=(0,0)):
-    for i, n in enumerate(self.names):
-      data = self.data[i]
-      coverd_areas = [] 
-      node_data = []
-      for nodes in self.block_text.find({'sitename': n}):
-        if nodes['depth']>max_depth:
-          continue
-        t,l,w,h = nodes['pos']
-        wh,ww = data.shape
-        t = min(max(0, t), wh)
-        l = min(max(0, l), ww)
-        w = min(ww-l, w)
-        h = min(wh-t, h)
-        _mark = '_'.join(map(str, (t,l,w,h)))
-        if _mark in coverd_areas or w<min_size[0] or h<min_size[1]:
-          continue
-        else:
-          coverd_areas.append(_mark) 
-        nodes['pos'] = (t,l,w,h)
-        node_data.append(nodes)
-      self.groups.append(DataGroup(data, self.labels[i], node_data, max_depth))
 
-  def node_labels(self):
-    labels = []
-    for group in self.groups:
-      labels += ([group.label] * len(group.nodes))
-    return labels
-'''
+
 class DataGroup:
   def __init__(self, data, label, nodes, max_depth):
     self.data = data
@@ -134,3 +100,13 @@ class DataGroup:
     for node in self.nodes:
       mapping[int(node['id'])] = node
     return mapping
+
+#code for test below
+
+#data = DataSet('C:\\server\\web\\extractor\\groups\\')
+#data = DataSet()
+#data.load('C:\\server\\web\\extractor\\groups\\','')
+#data.load_sample('C:\\server\\web\\extractor\\groups\\','test' )
+#print data.labels
+#print data.groups
+#print data.names

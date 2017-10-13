@@ -37,6 +37,7 @@ coverage.xml
 *.tar
 *.gz
 *.zip
+*.rar
 
 # Translations
 *.mo
@@ -66,4 +67,10 @@ Icon?
 ehthumbs.db
 Thumbs.db
 MANIFEST
+
+# images
+*.jpg
+*.png
+*.jpeg
+*.JPG
 

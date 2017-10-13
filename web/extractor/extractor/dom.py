@@ -17,7 +17,7 @@ class TextLengthFeature(NodeFeature):
       features.append([text_length,])
     return features
 
-  def do_compute(self, groups, y):
+  def compute(self, groups, y):
     features = []
     for group in groups:
       features += self.extract(group)
@@ -64,7 +64,7 @@ class PictureAmountFeature(NodeFeature):
 
     return features
 
-  def do_compute(self, groups, y):
+  def compute(self, groups, y):
     features = []
     for group in groups:
       features += self.extract(group)
@@ -83,7 +83,7 @@ class BlockSizeFeature(NodeFeature):
       features.append([w, h, t, l, d])
     return features
 
-  def do_compute(self, groups, y):
+  def compute(self, groups, y):
     features = []
     for group in groups:
       features += self.extract(group)
@@ -125,7 +125,7 @@ class NodeAmountFeature(NodeFeature):
 
     return features
 
-  def do_compute(self, groups, y):
+  def compute(self, groups, y):
     features = []
     for group in groups:
       features += self.extract(group)
@@ -217,7 +217,7 @@ class ClusterFeature(NodeFeature):
 
     return combiled_features
 
-  def do_compute(self, groups, y):
+  def compute(self, groups, y):
     features = []
     self.index = []
     for group in groups:
