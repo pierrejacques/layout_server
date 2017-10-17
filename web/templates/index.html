@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,45 +12,52 @@
     <script src="/static/js/vue.min.js"></script>
 <script>
 
-$(function() {
-var vm = new Vue({
-        el: '#judge',
-        data: {n:' '  ,addr:''},
-        methods: {
-            onClick: function (e) {
-                    postApi('/api/json',{'name':'cairuyuan','addr':this.addr},
-                            function(err, res){
-                                if (!err) {   //这里想根据res更改n，但是this的绑定已经变化了
-                                    $("#Score").text(res['res']);
-                                    document.getElementById("image").src= res['path']
-                                };
-                            }
-                        );
-                    this.addr='';
-            }
-        }
-    });
+$(() => {
+const vm = new Vue({
+    el: '#judge',
+    data: {
+      n: '',
+      addr: '',
+      imgSrc: '',
+    },
+    methods: {
+      onClick() {
+        postApi(
+          '/api/json',
+          {
+            'name': 'cairuyuan',
+            'addr': this.addr
+          },
+          (err, res) => {
+            if (!err) {
+              this.n = res.res // 这样写不就哦了么？
+              this.imgSrc = res.path
+            };
+          },
+        );
+        this.addr='';
+      },
+    },
+  });
 })
 
 </script>
 
 </head>
 <body class=" uk-text-center">
-    <p></p>
-    <h1 class=" uk-margin-large">Welcome</h1>
-    
-    <divt id = "judge" class = "uk-margin-large">
-        <h2 id = 'Score' class="uk-article-lead" >{{'{{n}}'}}</h2>
-        <input v-model='addr' id = 'addr' type="text" placeholder="输入网址" class="uk-width-1-2">
-        <button v-on="click: onClick" class="uk-button uk-button-primary" type="button" >测试</button>
+    <h1 class=" uk-margin-large">
+      Welcome
+    </h1>
+    <div id="judge" class="uk-margin-large">
+      <h2 class="uk-article-lead">{{n}}</h2>
+      <input v-model='addr' id = 'addr' type="text" placeholder="输入网址" class="uk-width-1-2">
+      <button @click="onClick" class="uk-button uk-button-primary" type="button" >测试</button>
     </div>
-    
+
     <hr class="uk-article-divider uk-margin-large">
 
     <article class="uk-article uk-text-center">
-        <img id = 'image' src="/extractor/screenshot/" width="320" height="175" alt="网页照片"/>
+        <img :src="imgSrc" width="320" height="175" alt="网页照片"/>
     </article>
-
-
 </body>
 </html>
