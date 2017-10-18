@@ -9,11 +9,11 @@
 <hr>
 <br>
 
-1. python
+## 1. python
 	- jinja2
 	- gevent
 	- gunicorn
-2. nginx
+## 2. nginx
     - 安装
     	1. Mac
     		- brew install nginx
@@ -39,11 +39,11 @@
 			- ssl_certificate   [ path ]/server.crt;
 			- ssl_certificate_key  [ path ]/server_nopwd.key;
 			- 不要用那个ssl on，问题多。
-3. 运行
+## 3. 运行
 	- 使用在mac下，先直接运行./run.sh，再根据帮助信息操作
 	- windows下，暂时不支持。
 
-4. 目录
+## 4. 目录
 	- conf 是配置文件
 	- doc  是用到的一些模块的说明
 	- web  是程序主目录
