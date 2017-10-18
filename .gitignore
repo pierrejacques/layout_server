@@ -67,3 +67,6 @@ ehthumbs.db
 Thumbs.db
 MANIFEST
 
+
+# ignore image
+*.png
