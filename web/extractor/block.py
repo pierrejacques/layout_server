@@ -1,0 +1,49 @@
+from ghost import Session
+from ghost import Ghost
+
+from utils import decode
+import os
+#from pymongo import MongoClient
+import traceback
+import time
+
+path = os.path.join(os.path.dirname(__file__), 'screenshot')
+#client = MongoClient()
+#db = client.blocks
+#block_text = db["block_evaluator"]
+
+def get_sitename(url):
+  url = url.replace("http://", "").replace("https://", "").strip()
+  print url.replace('.', '_').replace('/', '+').strip() 
+  return url.replace('.', '_').replace('/', '+').strip() 
+
+def render_notext(url):
+  sitename = get_sitename(url)
+  #block_text.remove({ 'sitename': sitename })
+  
+  g = Ghost()
+  ghost = Session(g, wait_timeout=60, display=True,viewport_size=(1280, 700),plugins_enabled=True,java_enabled=True)
+  #ghost.set_proxy('https', port=8118)
+  ghost.open(url, headers={
+    "Accept":"image/webp,*/*;q=0.8",
+    "Accept-Language": "zh-CN,zh;q=0.8",
+    "Connection": "keep-alive",
+    })
+     
+  ghost.wait_for_page_loaded(timeout= 60)
+  #time.sleep(10)
+  ghost.capture_to(os.path.join(path,sitename +'.png'),(0,0,1280,700))
+  return sitename
+  print "success"
+
+if __name__ == '__main__':
+  t = "http://www.baidu.com/"
+  try:
+    render_notext(t)
+  except Exception,e :
+    sitename = get_sitename(t) + '.png'
+    print e
+    if(os.path.isfile(os.path.join(path, sitename))):
+     os.unlink(os.path.join(path, sitename))
+    
+    traceback.print_exc()

@@ -7,7 +7,8 @@ from transwarp.web import ctx
 from transwarp.web_append import seeother, notfound, get, post,view
 from transwarp.apis import api, APIError, APIValueError, APIPermissionError, APIResourceNotFoundError
 import urlparse
-
+from extractor.evaluator import get_score
+import string
 @view('index.html')#view类型的返回字典，用来渲染模板
 @get('/index')
 def signin():
@@ -18,11 +19,9 @@ def signin():
 @get('/api/users')
 def getuser():
     print ctx.request.para
-    print "hello ..."
     # callback = ctx.request.para['callback']
     # res = '{0}({1})'.format(callback, {'a':1, 'b':2})
-    resp = {"OK":"NOK"}
-    print resp
+    resp = {"users":"12"}
     return resp
 
 @api
@@ -34,19 +33,17 @@ def ALLusers():
 @api
 @post('/api/json')
 def compute():
-    print ctx.request.para
-    
-    urls = urlparse.urlparse(ctx.request.para['addr'])
-    host = urls.netloc
+    #print (123)
+    print ctx.request.para#包含了{'name': u'cairuyuan', 'addr': u'www.sjtu.edu.cn'}这一句的输出
+    url = ctx.request.para['addr']
+    #print (123)
+    print url
+    urls = url.replace("http://","").replace("https://","").strip()
+    b=get_score(url)
+    c=string.atof(b[0:5])
+    score=round(c*100)
+    host=urls
     print host
-    path = '/extractor/screenshot/'+host.replace('.','_')+'+.png'
+    path='/extractor/screenshot/'+urls.replace('.','_').replace('/','+').strip()+'.png'
     print path
-    return {'res': ctx.request.para['addr'], 'path':path }
-
-
-@api
-@post('/api/json2')
-def compute():
-    print ctx.request.para
-    
-    return {'score':22,'id':0 }
+    return {'res':score,'path':path}

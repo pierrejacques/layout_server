@@ -41,7 +41,7 @@ elif   [[ $1 == "start" ]]; then
 	echo "start"
 	killnginx
 	killpython
-	sudo nginx -c /server/conf/nginx.conf  &
+	sudo nginx -c /System/server/conf/nginx.conf  &
 	(cd ./web
     #/usr/local/bin/gunicorn --bind 127.0.0.1:9000 --workers 4 --worker-class gevent wsgiapp:application & 
 	python wsgiapp.py &
@@ -52,10 +52,10 @@ elif [[ $1 == "stop" ]]; then
 	killpython
 elif [[ $1 == "reload" ]]; then
 	echo "reload"
-	sudo nginx -s reload -c /server/conf/nginx.conf
+	sudo nginx -s reload -c /System/server/conf/nginx.conf
 elif [[ $1 == "test" ]]; then
 	echo "test"
-	sudo nginx -t -c /server/conf/nginx.conf
+	sudo nginx -t -c /System/server/conf/nginx.conf
 elif [[ $1 == "help" ]]; then
     helpinfo
 fi 

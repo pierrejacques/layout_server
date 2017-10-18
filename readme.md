@@ -48,3 +48,9 @@
 	- doc  是用到的一些模块的说明
 	- web  是程序主目录
 	- *猴子的插件在 web/static/js/plugin.js
+	
+	🍺  /usr/local/Cellar/opencv/2.4.12: 225 files, 36M
+	
+	/Users/zoe/.local/lib/python2.7/site-packages
+	/usr/local/lib/python2.7/site-packages
+	
